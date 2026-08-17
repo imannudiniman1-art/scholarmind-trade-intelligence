@@ -247,4 +247,241 @@ if isinstance(data, list) and data:
 
     with col2:
         st.metric(
-            "Profit
+            "Profit Analysis",
+            "Ready"
+        )
+
+    with col3:
+        st.metric(
+            "Risk Analysis",
+            "Ready"
+        )
+
+    with col4:
+        st.metric(
+            "Recommendation",
+            "Ready"
+        )
+
+
+    # --------------------------------------------------------
+    # RECOMMENDATIONS
+    # --------------------------------------------------------
+
+    st.divider()
+
+    st.subheader("💡 Trade Recommendations")
+
+    for item in analysis_data:
+
+        st.write(
+            f"**{item['market']}** — "
+            f"Demand: {item['demand']:.0f}, "
+            f"Risk: {item['risk']:.0f} → "
+            f"**{item['recommendation']}**"
+        )
+
+
+    # --------------------------------------------------------
+    # DEMAND
+    # --------------------------------------------------------
+
+    st.divider()
+
+    st.subheader("📊 Demand per Market")
+
+    demand_data = {
+        item["market"]: item["demand"]
+        for item in analysis_data
+    }
+
+    if demand_data:
+        st.bar_chart(demand_data)
+
+
+    # --------------------------------------------------------
+    # PRICE VS COST
+    # --------------------------------------------------------
+
+    st.subheader("💰 Price vs Cost")
+
+    price_cost_data = {
+        item["market"]: {
+            "Price": item["price"],
+            "Cost": item["cost"]
+        }
+        for item in analysis_data
+    }
+
+    if price_cost_data:
+
+        price_cost_df = pd.DataFrame(
+            price_cost_data
+        ).T
+
+        st.bar_chart(price_cost_df)
+
+
+    # --------------------------------------------------------
+    # RISK VS DEMAND
+    # --------------------------------------------------------
+
+    st.subheader("⚠️ Risk vs Demand")
+
+    risk_demand_df = pd.DataFrame(
+        [
+            {
+                "Market": item["market"],
+                "Demand": item["demand"],
+                "Risk": item["risk"]
+            }
+            for item in analysis_data
+        ]
+    )
+
+    if not risk_demand_df.empty:
+
+        st.scatter_chart(
+            risk_demand_df,
+            x="Demand",
+            y="Risk"
+        )
+
+
+    # --------------------------------------------------------
+    # PROFIT
+    # --------------------------------------------------------
+
+    st.subheader("📈 Profit Analysis")
+
+    profit_data = {
+        item["market"]: item["profit"]
+        for item in analysis_data
+    }
+
+    if profit_data:
+        st.bar_chart(profit_data)
+
+
+    # --------------------------------------------------------
+    # RECOMMENDATION SCORE
+    # --------------------------------------------------------
+
+    st.subheader("🎯 Recommendation Score")
+
+    recommendation_data = {
+        item["market"]: recommendation_score(
+            item["recommendation"]
+        )
+        for item in analysis_data
+    }
+
+    if recommendation_data:
+
+        recommendation_df = pd.DataFrame(
+            {
+                "Recommendation Score":
+                    recommendation_data
+            }
+        )
+
+        st.bar_chart(recommendation_df)
+
+
+    # --------------------------------------------------------
+    # SUMMARY
+    # --------------------------------------------------------
+
+    st.divider()
+
+    st.subheader("📋 Market Analysis Summary")
+
+    summary_df = pd.DataFrame(analysis_data)
+
+    st.dataframe(
+        summary_df[
+            [
+                "market",
+                "demand",
+                "risk",
+                "price",
+                "cost",
+                "quantity",
+                "margin",
+                "profit",
+                "recommendation"
+            ]
+        ],
+        use_container_width=True
+    )
+
+
+    # --------------------------------------------------------
+    # BEST MARKET
+    # --------------------------------------------------------
+
+    st.subheader("🚀 Priority Market")
+
+    best_market = max(
+        analysis_data,
+        key=lambda x: x["demand"] - x["risk"]
+    )
+
+    st.success(
+        f"Priority Market: **{best_market['market']}**"
+    )
+
+    st.write(
+        f"Demand: **{best_market['demand']:.0f}**"
+    )
+
+    st.write(
+        f"Risk: **{best_market['risk']:.0f}**"
+    )
+
+    st.write(
+        f"Recommendation: **{best_market['recommendation']}**"
+    )
+
+
+# ============================================================
+# NO DATA MESSAGE
+# ============================================================
+
+else:
+
+    st.divider()
+
+    st.info(
+        "👆 Upload a CSV or JSON trade dataset "
+        "to start Market Analytics."
+    )
+
+    st.subheader("📄 Required Data Fields")
+
+    st.write(
+        "Your dataset should contain:"
+    )
+
+    st.write(
+        """
+        - market
+        - demand
+        - risk
+        - price
+        - cost
+        - quantity
+        """
+    )
+
+
+# ============================================================
+# FOOTER
+# ============================================================
+
+st.divider()
+
+st.caption(
+    "ScholarMind Trade Intelligence — "
+    "AI-assisted decision support for SMEs."
+)
