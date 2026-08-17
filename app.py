@@ -4,8 +4,10 @@ import tempfile
 import streamlit as st
 
 from src.data_loader import load_data
-
 from src.market_trend import analyze_market_trend
+from src.profit import calculate_profit
+from src.risk import assess_risk
+from src.recommendation import generate_recommendation
 
 
 st.set_page_config(
