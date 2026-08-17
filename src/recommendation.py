@@ -1,21 +1,16 @@
-def generate_recommendation(demand, risk):
+def generate_recommendation(trend, demand, risk):
     """
-    Generate a simple trade recommendation
-    based on market demand and risk.
-
-    High demand + low risk -> BUY
-    High demand + high risk -> CAUTION
-    Low demand + low risk -> WATCH
-    Low demand + high risk -> AVOID
+    Generate a trade recommendation based on
+    market trend, demand, and risk.
     """
 
-    if demand >= 80 and risk < 30:
+    if trend == "Increasing" and demand >= 20 and risk <= 10:
         return "BUY"
 
-    if demand >= 80 and risk >= 30:
+    if trend == "Increasing" and demand >= 20:
         return "CAUTION"
 
-    if demand < 80 and risk < 30:
-        return "WATCH"
+    if trend == "Decreasing" and risk >= 30:
+        return "AVOID"
 
-    return "AVOID"
+    return "WATCH"
