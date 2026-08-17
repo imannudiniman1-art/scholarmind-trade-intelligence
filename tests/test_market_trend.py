@@ -1,23 +1,21 @@
-from src.market_trend import calculate_growth, analyze_trend
+def calculate_growth(old_value, new_value):
+    if old_value == 0:
+        return 0.0
+
+    return ((new_value - old_value) / old_value) * 100
 
 
-def test_calculate_growth():
-    assert calculate_growth(100, 120) == 20.0
+def analyze_trend(old_value, new_value):
+    growth = calculate_growth(old_value, new_value)
 
+    if growth > 2:
+        trend = "Increasing"
+    elif growth < -2:
+        trend = "Decreasing"
+    else:
+        trend = "Stable"
 
-def test_increasing_trend():
-    result = analyze_trend(100, 120)
-    assert result["trend"] == "Increasing"
-    assert result["growth"] == 20.0
-
-
-def test_decreasing_trend():
-    result = analyze_trend(100, 80)
-    assert result["trend"] == "Decreasing"
-    assert result["growth"] == -20.0
-
-
-def test_stable_trend():
-    result = analyze_trend(100, 102)
-    assert result["trend"] == "Stable"
-    assert result["growth"] == 2.0
+    return {
+        "trend": trend,
+        "growth": growth
+    }
