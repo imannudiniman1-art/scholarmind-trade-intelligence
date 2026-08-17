@@ -8,7 +8,7 @@ from src.market_trend import analyze_market_trend
 from src.profit import calculate_profit
 from src.risk import assess_risk
 from src.recommendation import generate_recommendation
-
+from src.recommendation import generate_recommendation
 
 st.set_page_config(
     page_title="ScholarMind Trade Intelligence",
@@ -83,6 +83,22 @@ with col3:
 with col4:
     st.metric("Recommendation", "Ready")
 
+st.divider()
+
+st.subheader("🧠 Trade Recommendations")
+
+if isinstance(data, list):
+    for item in data:
+        market = item.get("market", "Unknown")
+        demand = item.get("demand", 0)
+        risk = item.get("risk", 0)
+
+        recommendation = generate_recommendation(demand, risk)
+
+        st.write(
+            f"**{market}** — Demand: {demand}, Risk: {risk} → "
+            f"**{recommendation}**"
+        )
 
 st.divider()
 
