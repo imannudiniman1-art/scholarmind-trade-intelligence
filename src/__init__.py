@@ -1,1 +1,1 @@
-Add src package initializer
+"""ScholarMind Trade Intelligence source package."""
