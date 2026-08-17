@@ -99,6 +99,18 @@ if isinstance(data, list):
             f"**{market}** — Demand: {demand}, Risk: {risk} → "
             f"**{recommendation}**"
         )
+st.divider()
+
+st.subheader("📊 Market Demand vs Risk")
+
+if isinstance(data, list) and data:
+    df = pd.DataFrame(data)
+
+    if "market" in df.columns and "demand" in df.columns and "risk" in df.columns:
+        chart_data = df.set_index("market")[["demand", "risk"]]
+        st.bar_chart(chart_data)
+    else:
+        st.warning("Data must contain market, demand, and risk columns.")
 
 st.divider()
 
