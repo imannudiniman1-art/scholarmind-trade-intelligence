@@ -6,3 +6,4 @@ def assess_risk(data):
         return "unknown"
 
     return "medium"
+
