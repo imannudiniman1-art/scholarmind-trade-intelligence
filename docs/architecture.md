@@ -17,27 +17,32 @@ File:
 src/data_loader.py
 Responsible for loading and preparing trade-related data.
 
-###Market Trend
+### Market Trend
 File:
 src/market_trend.py
 Analyzes market information and identifies basic market trends.
-Profit Analysis
+
+### Profit Analysis
 File:
 src/profit.py
 Provides basic profit-related calculations and analysis.
-Risk Assessment
+
+### Risk Assessment
 File:
 src/risk.py
 Evaluates potential business or trading risk.
-Recommendation Engine
+
+### Recommendation Engine
 File:
 src/recommendation.py
 Generates business recommendations based on available information.
-Trade Intelligence
+
+### Trade Intelligence
 File:
 src/trade_intelligence.py
 Acts as the main interface connecting the analytical components.
-4. Data Flow
+
+## 3. Data Flow
 The general processing flow is:
 Load trade data.
 Validate the available information.
@@ -46,7 +51,8 @@ Estimate potential profit.
 Assess risk.
 Generate recommendations.
 Return structured trade intelligence.
-5. Testing
+
+## 4. Testing
 Automated tests are stored in the tests/ directory.
 The test suite covers:
 Market trend analysis
@@ -55,7 +61,8 @@ Risk assessment
 Recommendation generation
 Trade intelligence
 GitHub Actions is used to automatically run the test suite when changes are pushed to the repository.
-6. Design Goals
+
+## 5. Design Goals
 The architecture is designed to be:
 Modular
 Easy to test
@@ -64,7 +71,7 @@ Transparent
 Suitable for future AI integration
 Future versions can integrate external trade datasets, machine learning models, and larger language models.
 
-## 2. System Architecture
+## 6. System Architecture
 
 The system consists of several core components:
 
@@ -93,67 +100,4 @@ Business Decision Support
 
 
 
-## 3. Core Module
-
-Data Loader
-
-File:
-src/data_loader.py
-Responsible for loading and preparing trade-related data.
-
-### Market Trend
-File:
-src/market_trend.py
-Analyzes market information and identifies basic market trends.
-
-### Profit Analysis
-File:
-src/profit.py
-Provides basic profit-related calculations and analysis.
-
-### Risk Assessment
-File:
-src/risk.py
-Evaluates potential business or trading risk.
-
-### Recommendation Engine
-File:
-src/recommendation.py
-Generates business recommendations based on available information.
-
-### Trade Intelligence
-File:
-src/trade_intelligence.py
-Acts as the main interface connecting the analytical components.
-
-## 4. Data Flow
-
-The general processing flow is:
-Load trade data.
-Validate the available information.
-Analyze market trends.
-Estimate potential profit.
-Assess risk.
-Generate recommendations.
-Return structured trade intelligence.
-
-## 5. Testing
-
-Automated tests are stored in the tests/ directory.
-The test suite covers:
-Market trend analysis
-Profit analysis
-Risk assessment
-Recommendation generation
-Trade intelligence
-GitHub Actions is used to automatically run the test suite when changes are pushed to the repository.
-
-
-## 6. Design Goals
-The architecture is designed to be:
-Modular
-Easy to test
-Easy to extend
-Transparent
-Suitable for future AI integration
-Future versions can integrate external trade datasets, machine learning models, and larger language models.
+.
