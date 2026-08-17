@@ -2,9 +2,9 @@ name: Tests
 
 on:
   push:
-    branches: [main]
+    branches: [ main ]
   pull_request:
-    branches: [main]
+    branches: [ main ]
 
 jobs:
   test:
@@ -25,4 +25,7 @@ jobs:
           pip install pytest
 
       - name: Run tests
-        run: pytest -v
+        env:
+          PYTHONPATH: ${{ github.workspace }}
+        run: |
+          python -m pytest -v
