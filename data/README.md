@@ -19,6 +19,30 @@ The project supports common structured data formats, including:
 - JSON
 - CSV
 
+## Data Policy
+
+No private, confidential, or personally identifiable information should be committed to this repository.
+When using external datasets, appropriate source attribution and licensing information should be maintained.
+
+## Example Data
+
+Small example datasets may be included for testing and demonstration purposes.
+Large datasets should not be committed directly to the repository. Instead, provide instructions or references for obtaining them.
+
+## Data Policy
+
+No private, confidential, or personally identifiable information should be committed to this repository.
+When using external datasets, appropriate source attribution and licensing information should be maintained.
+
+## Example Data
+
+Small example datasets may be included for testing and demonstration purposes.
+Large datasets should not be committed directly to the repository. Instead, provide instructions or references for obtaining them.
+
+## Status
+
+The data loading functionality is covered by automated tests.
+
 ## Data Loading
 
 Data can be loaded using the project's data loading utilities.
@@ -37,17 +61,3 @@ from src.load_data import load_data
 
 data = load_data("data/example.csv").   
 
-
-## Data Policy
-
-No private, confidential, or personally identifiable information should be committed to this repository.
-When using external datasets, appropriate source attribution and licensing information should be maintained.
-
-## Example Data
-
-Small example datasets may be included for testing and demonstration purposes.
-Large datasets should not be committed directly to the repository. Instead, provide instructions or references for obtaining them.
-
-## Status
-
-The data loading functionality is covered by automated tests.
