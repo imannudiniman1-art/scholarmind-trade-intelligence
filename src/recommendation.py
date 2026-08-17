@@ -1,8 +1,8 @@
-def generate_recommendation(data):
-    """
-    Generate a simple business recommendation.
-    """
-    if not data:
-        return "No data available for recommendation."
+def generate_recommendation(trend, growth, profit):
+    if trend == "Increasing" and growth > 0 and profit > 0:
+        return "Increase investment"
 
-    return "Review market conditions before making a trade."
+    if trend == "Decreasing" or profit < 0:
+        return "Reduce risk"
+
+    return "Maintain current strategy"
