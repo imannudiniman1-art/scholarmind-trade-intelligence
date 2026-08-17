@@ -1,32 +1,21 @@
-def generate_recommendation(data):
+def generate_recommendation(demand, risk):
     """
-    Generate a simple business recommendation
-    based on demand, risk, and profit.
+    Generate a simple trade recommendation
+    based on market demand and risk.
+
+    High demand + low risk -> BUY
+    High demand + high risk -> CAUTION
+    Low demand + low risk -> WATCH
+    Low demand + high risk -> AVOID
     """
 
-    recommendations = []
+    if demand >= 80 and risk < 30:
+        return "BUY"
 
-    for item in data:
-        product = item.get("product", "Unknown")
-        demand = item.get("demand", 0)
-        risk = item.get("risk", 0)
-        price = item.get("price", 0)
-        cost = item.get("cost", 0)
+    if demand >= 80 and risk >= 30:
+        return "CAUTION"
 
-        profit = price - cost
+    if demand < 80 and risk < 30:
+        return "WATCH"
 
-        if demand >= 80 and risk <= 25 and profit > 0:
-            recommendation = "High potential"
-        elif risk >= 30:
-            recommendation = "High risk"
-        elif profit > 0:
-            recommendation = "Moderate potential"
-        else:
-            recommendation = "Low potential"
-
-        recommendations.append({
-            "product": product,
-            "recommendation": recommendation
-        })
-
-    return recommendations
+    return "AVOID"
