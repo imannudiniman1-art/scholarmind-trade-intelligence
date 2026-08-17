@@ -19,20 +19,6 @@ The project supports common structured data formats, including:
 - JSON
 - CSV
 
-## Data Policy
-
-No private, confidential, or personally identifiable information should be committed to this repository.
-When using external datasets, appropriate source attribution and licensing information should be maintained.
-
-## Example Data
-
-Small example datasets may be included for testing and demonstration purposes.
-Large datasets should not be committed directly to the repository. Instead, provide instructions or references for obtaining them.
-
-## Data Policy
-
-No private, confidential, or personally identifiable information should be committed to this repository.
-When using external datasets, appropriate source attribution and licensing information should be maintained.
 
 ## Example Data
 
