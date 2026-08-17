@@ -17,3 +17,4 @@ class TradeIntelligence:
 
     def assess_risk(self, data):
         return "medium"
+
