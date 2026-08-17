@@ -5,7 +5,7 @@ import streamlit as st
 
 from src.data_loader import load_data
 
-from src.data_loader import load_data
+from src.market_trend import analyze_market_trend
 
 
 st.set_page_config(
@@ -70,7 +70,11 @@ st.header("🧠 Trade Intelligence")
 col1, col2, col3, col4 = st.columns(4)
 
 with col1:
-    st.metric("Market Trend", "Ready")
+    if data is not None and hasattr(data, "columns") and "demand" in data.columns:
+        market_result = analyze_market_trend(data)
+        st.metric("Market Trend", market_result)
+    else:
+        st.metric("Market Trend", "Waiting for data")
 
 with col2:
     st.metric("Profit Analysis", "Ready")
