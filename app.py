@@ -36,32 +36,32 @@ uploaded_file = st.file_uploader(
 )
 
 if uploaded_file is not None:
-
     try:
-        if uploaded_file.name.endswith(".json"):
-            data = load_data(uploaded_file)
+        import tempfile
+        import os
 
-        elif uploaded_file.name.endswith(".csv"):
-            data = load_data(uploaded_file)
+        suffix = os.path.splitext(uploaded_file.name)[1]
 
-        st.success("Data loaded successfully!")
+        with tempfile.NamedTemporaryFile(
+            delete=False,
+            suffix=suffix
+        ) as tmp:
+            tmp.write(uploaded_file.getbuffer())
+            temp_path = tmp.name
 
-        st.subheader("📋 Data Preview")
+        data = load_data(temp_path)
 
-        if isinstance(data, pd.DataFrame):
+        os.unlink(temp_path)
+
+        st.success("Trade data loaded successfully.")
+
+        if isinstance(data, list):
             st.dataframe(data, use_container_width=True)
-
         else:
             st.write(data)
 
     except Exception as e:
         st.error(f"Unable to load data: {e}")
-
-else:
-    st.info(
-        "Upload a trade dataset to begin the analysis."
-    )
-
 
 st.divider()
 
