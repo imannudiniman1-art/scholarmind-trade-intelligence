@@ -34,7 +34,11 @@ Trade Intelligence
     v
 Business Decision Support
 
-##3. Core Modules
+
+
+
+
+## 3. Core Modules
 
 Data Loader
 
@@ -67,7 +71,7 @@ File:
 src/trade_intelligence.py
 Acts as the main interface connecting the analytical components.
 
-##4. Data Flow
+## 4. Data Flow
 
 The general processing flow is:
 Load trade data.
@@ -78,7 +82,7 @@ Assess risk.
 Generate recommendations.
 Return structured trade intelligence.
 
-##5. Testing
+## 5. Testing
 
 Automated tests are stored in the tests/ directory.
 The test suite covers:
@@ -89,7 +93,7 @@ Recommendation generation
 Trade intelligence
 GitHub Actions is used to automatically run the test suite when changes are pushed to the repository.
 
-##6. Design Goals
+## 6. Design Goals
 
 The architecture is designed to be:
 Modular
