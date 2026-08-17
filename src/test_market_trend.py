@@ -23,3 +23,4 @@ def test_stable_trend():
     result = analyze_trend(100, 102)
 
     assert result["trend"] == "Stable"
+    assert result["growth"] == 2.0
