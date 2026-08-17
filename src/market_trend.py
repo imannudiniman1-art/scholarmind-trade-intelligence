@@ -25,3 +25,4 @@ def analyze_market_trend(data):
         "trend": trend,
         "change": change
     }
+
