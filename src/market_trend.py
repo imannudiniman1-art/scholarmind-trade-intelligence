@@ -1,29 +1,16 @@
 def analyze_market_trend(data):
     """
-    Analyze basic market trend from price data.
+    Analyze market demand and classify the market trend.
     """
 
-    if not data:
-        return {
-            "trend": "stable",
-            "change": 0
-        }
+    if data is None or len(data) == 0:
+        return "No data available"
 
-    first = data[0]
-    last = data[-1]
+    average_demand = data["demand"].mean()
 
-    change = last - first
-
-    if change > 0:
-        trend = "up"
-    elif change < 0:
-        trend = "down"
+    if average_demand >= 80:
+        return "Strong Market Demand"
+    elif average_demand >= 60:
+        return "Moderate Market Demand"
     else:
-        trend = "stable"
-
-    return {
-        "trend": trend,
-        "change": change
-    }
-
-
+        return "Weak Market Demand"
