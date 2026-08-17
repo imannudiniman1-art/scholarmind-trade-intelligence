@@ -1,9 +1,15 @@
-def assess_risk(data):
+def assess_risk(risk):
     """
-    Assess basic trading risk.
+    Assess trade risk level.
+
+    Risk score:
+    0-29   = Low
+    30-59  = Medium
+    60+    = High
     """
-    if not data:
-        return "unknown"
-
-    return "medium"
-
+    if risk < 30:
+        return "Low Risk"
+    elif risk < 60:
+        return "Medium Risk"
+    else:
+        return "High Risk"
