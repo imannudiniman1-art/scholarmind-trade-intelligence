@@ -66,6 +66,155 @@ if uploaded_file is not None:
         st.error(f"Unable to load data: {e}")
 
 st.divider()
+st.divider()
+
+st.subheader("📊 Market Analytics")
+
+if isinstance(data, list) and data:
+
+    # Prepare analysis data
+    analysis_data = []
+
+    for item in data:
+        market = item.get("market", "Unknown")
+        demand = item.get("demand", 0)
+        risk = item.get("risk", 0)
+        price = item.get("price", 0)
+        cost = item.get("cost", 0)
+        quantity = item.get("quantity", 0)
+
+        margin = price - cost
+        profit = quantity * margin
+
+        recommendation = generate_recommendation(
+            demand,
+            risk
+        )
+
+        analysis_data.append({
+            "market": market,
+            "demand": demand,
+            "risk": risk,
+            "price": price,
+            "cost": cost,
+            "margin": margin,
+            "quantity": quantity,
+            "profit": profit,
+            "recommendation": recommendation
+        })
+
+    # ------------------------------------------------
+    # 1. Demand per Market
+    # ------------------------------------------------
+    st.subheader("📊 Demand per Market")
+
+    demand_chart = {
+        item["market"]: item["demand"]
+        for item in analysis_data
+    }
+
+    st.bar_chart(demand_chart)
+
+    # ------------------------------------------------
+    # 2. Price vs Cost
+    # ------------------------------------------------
+    st.subheader("💰 Price vs Cost")
+
+    price_cost_chart = {
+        item["market"]: {
+            "Price": item["price"],
+            "Cost": item["cost"]
+        }
+        for item in analysis_data
+    }
+
+    import pandas as pd
+
+    price_cost_df = pd.DataFrame(price_cost_chart).T
+
+    st.bar_chart(price_cost_df)
+
+    # ------------------------------------------------
+    # 3. Risk vs Demand
+    # ------------------------------------------------
+    st.subheader("⚠️ Risk vs Demand")
+
+    risk_demand_df = pd.DataFrame([
+        {
+            "market": item["market"],
+            "Demand": item["demand"],
+            "Risk": item["risk"]
+        }
+        for item in analysis_data
+    ])
+
+    st.scatter_chart(
+        risk_demand_df,
+        x="Demand",
+        y="Risk"
+    )
+
+    # ------------------------------------------------
+    # 4. Profit Analysis
+    # ------------------------------------------------
+    st.subheader("📈 Profit Analysis")
+
+    profit_chart = {
+        item["market"]: item["profit"]
+        for item in analysis_data
+    }
+
+    st.bar_chart(profit_chart)
+
+    # ------------------------------------------------
+    # 5. Recommendation Chart
+    # ------------------------------------------------
+    st.subheader("🧠 Recommendation Chart")
+
+    recommendation_score = {
+        "BUY": 4,
+        "CAUTION": 3,
+        "WATCH": 2,
+        "AVOID": 1
+    }
+
+    recommendation_df = pd.DataFrame([
+        {
+            "market": item["market"],
+            "Recommendation": recommendation_score[
+                item["recommendation"]
+            ]
+        }
+        for item in analysis_data
+    ])
+
+    st.bar_chart(
+        recommendation_df.set_index("market")
+    )
+
+    # ------------------------------------------------
+    # Summary table
+    # ------------------------------------------------
+    st.subheader("📋 Market Analysis Summary")
+
+    summary_df = pd.DataFrame(analysis_data)
+
+    st.dataframe(
+        summary_df[
+            [
+                "market",
+                "demand",
+                "risk",
+                "price",
+                "cost",
+                "margin",
+                "quantity",
+                "profit",
+                "recommendation"
+            ]
+        ],
+        use_container_width=True
+    )
 
 st.header("🧠 Trade Intelligence")
 
