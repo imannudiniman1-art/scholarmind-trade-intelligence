@@ -1,0 +1,29 @@
+[
+  {
+    "product": "Coffee",
+    "market": "Indonesia",
+    "quantity": 100,
+    "price": 25000,
+    "cost": 18000,
+    "demand": 85,
+    "risk": 20
+  },
+  {
+    "product": "Cocoa",
+    "market": "Malaysia",
+    "quantity": 80,
+    "price": 30000,
+    "cost": 22000,
+    "demand": 75,
+    "risk": 30
+  },
+  {
+    "product": "Palm Oil",
+    "market": "Singapore",
+    "quantity": 150,
+    "price": 28000,
+    "cost": 21000,
+    "demand": 90,
+    "risk": 25
+  }
+]
