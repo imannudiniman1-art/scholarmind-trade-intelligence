@@ -1,86 +1,34 @@
-import os
-import tempfile
-
-import streamlit as st
-
-from src.data_loader import load_data
+import csv
+import json
+from pathlib import Path
 
 
-st.set_page_config(
-    page_title="ScholarMind Trade Intelligence",
-    page_icon="📊",
-    layout="wide",
-)
+def load_csv(file_path):
+    """Load data from a CSV file."""
+    path = Path(file_path)
 
-st.title("📊 ScholarMind Trade Intelligence")
-
-st.markdown(
-    """
-    **AI-powered trade intelligence and decision support platform for SMEs.**
-
-    Analyze trade data to understand market trends, profitability,
-    risk, and business recommendations.
-    """
-)
-
-st.divider()
-
-st.header("📂 Load Trade Data")
-
-uploaded_file = st.file_uploader(
-    "Upload a JSON or CSV file",
-    type=["json", "csv"],
-)
-
-if uploaded_file is not None:
-
-    try:
-        suffix = os.path.splitext(uploaded_file.name)[1]
-
-        with tempfile.NamedTemporaryFile(
-            delete=False,
-            suffix=suffix,
-        ) as temp_file:
-
-            temp_file.write(uploaded_file.getbuffer())
-            temp_path = temp_file.name
-
-        data = load_data(temp_path)
-
-        st.success("Data loaded successfully!")
-
-        st.subheader("📋 Data Preview")
-
-        st.dataframe(data, use_container_width=True)
-
-        os.remove(temp_path)
-
-    except Exception as e:
-        st.error(f"Unable to load data: {e}")
+    with path.open("r", encoding="utf-8", newline="") as file:
+        return list(csv.DictReader(file))
 
 
-st.divider()
+def load_json(file_path):
+    """Load data from a JSON file."""
+    path = Path(file_path)
 
-st.header("🧠 Trade Intelligence")
-
-col1, col2, col3, col4 = st.columns(4)
-
-with col1:
-    st.metric("Market Trend", "Ready")
-
-with col2:
-    st.metric("Profit Analysis", "Ready")
-
-with col3:
-    st.metric("Risk Analysis", "Ready")
-
-with col4:
-    st.metric("Recommendation", "Ready")
+    with path.open("r", encoding="utf-8") as file:
+        return json.load(file)
 
 
-st.divider()
+def load_data(file_path):
+    """Load CSV or JSON data based on the file extension."""
+    path = Path(file_path)
 
-st.caption(
-    "ScholarMind Trade Intelligence — "
-    "AI-assisted decision support for SMEs."
-)
+    if path.suffix.lower() == ".csv":
+        return load_csv(path)
+
+    if path.suffix.lower() == ".json":
+        return load_json(path)
+
+    raise ValueError(
+        "Unsupported file format. Use CSV or JSON."
+    )
