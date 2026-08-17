@@ -7,6 +7,13 @@ def calculate_profit(price, cost, quantity):
     """Calculate total profit for a trade."""
     return (price - cost) * quantity
 
+def calculate_profit(cost, price, expense):
+    """
+    Calculate profit from a trade.
+
+    Profit = selling price - cost - expense
+    """
+    return price - cost - expense
 
 def calculate_profit_margin(price, cost):
     """Calculate profit margin as a percentage."""
