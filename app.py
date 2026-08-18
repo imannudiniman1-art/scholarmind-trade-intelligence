@@ -295,8 +295,8 @@ if isinstance(data, list) and data:
         for item in analysis_data
     }
         if demand_data:
-
         st.bar_chart(demand_data)
+
 
     # --------------------------------------------------------
     # PRICE VS COST
