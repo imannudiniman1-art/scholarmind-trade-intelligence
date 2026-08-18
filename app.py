@@ -295,13 +295,12 @@ if isinstance(data, list) and data:
         for item in analysis_data
     }
 
-    if demand_data:
-
-        st.scatter_chart.(
-            demand_data,
-            x="market",
-            y="demand"
-
+        if demand_data:
+            st.scatter_chart.(
+               demand_data,
+               x="demand",
+               y="market"
+            )
     # --------------------------------------------------------
     # PRICE VS COST
     # --------------------------------------------------------
