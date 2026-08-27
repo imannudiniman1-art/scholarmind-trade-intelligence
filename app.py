@@ -5,6 +5,10 @@ import tempfile
 import pandas as pd
 import streamlit as st
 
+from src.market_entry_score import (
+    calculate_market_entry_score,
+    classify_market_entry_score
+)
 
 # ============================================================
 # PAGE CONFIGURATION
