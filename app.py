@@ -330,15 +330,12 @@ if isinstance(data, list) and data:
     # PREPARE DATA
     # ========================================================
 
-    for item in data:
+for item in data:
 
     if not isinstance(item, dict):
         continue
 
-    market = item.get(
-        "market",
-        "Unknown"
-    )
+    market = item.get("market", "Unknown")
 
     demand = to_number(
         item.get("demand", 0)
@@ -400,8 +397,9 @@ if isinstance(data, list) and data:
             "entry_class": entry_class,
             "recommendation": recommendation
         }
-    )
-
+   
+      )
+   
     if analysis_data:
 
         # ====================================================
