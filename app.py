@@ -331,33 +331,29 @@ if isinstance(data, list) and data:
     # ========================================================
 
     for item in data:
+    margin = price - cost
 
-        if not isinstance(item, dict):
-            continue
-
-        market = item.get(
-            "market",
-            "Unknown"
+    profit_margin = (
+        (margin / price) * 100
+        if price > 0
+        else 0
         )
 
-        demand = to_number(
-            item.get("demand", 0)
+    profit = quantity * margin
+
+    entry_score = calculate_market_entry_score(
+        demand=demand,
+        profit_margin=profit_margin,
+        risk=risk
         )
 
-        risk = to_number(
-            item.get("risk", 0)
+    entry_class = classify_market_entry_score(
+        entry_score
         )
 
-        price = to_number(
-            item.get("price", 0)
-        )
-
-        cost = to_number(
-            item.get("cost", 0)
-        )
-
-        quantity = to_number(
-            item.get("quantity", 0)
+    recommendation = generate_recommendation(
+        demand,
+        risk
         )
 
         margin = price - cost
