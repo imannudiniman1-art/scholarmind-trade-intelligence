@@ -331,13 +331,42 @@ if isinstance(data, list) and data:
     # ========================================================
 
     for item in data:
+
+    if not isinstance(item, dict):
+        continue
+
+    market = item.get(
+        "market",
+        "Unknown"
+    )
+
+    demand = to_number(
+        item.get("demand", 0)
+    )
+
+    risk = to_number(
+        item.get("risk", 0)
+    )
+
+    price = to_number(
+        item.get("price", 0)
+    )
+
+    cost = to_number(
+        item.get("cost", 0)
+    )
+
+    quantity = to_number(
+        item.get("quantity", 0)
+    )
+
     margin = price - cost
 
     profit_margin = (
         (margin / price) * 100
         if price > 0
         else 0
-        )
+    )
 
     profit = quantity * margin
 
@@ -345,40 +374,33 @@ if isinstance(data, list) and data:
         demand=demand,
         profit_margin=profit_margin,
         risk=risk
-        )
+    )
 
     entry_class = classify_market_entry_score(
         entry_score
-        )
+    )
 
     recommendation = generate_recommendation(
         demand,
         risk
-        )
+    )
 
-        margin = price - cost
-
-        profit = quantity * margin
-
-        recommendation = generate_recommendation(
-            demand,
-            risk
-        )
-
-        analysis_data.append(
-            {
-                "market": market,
-                "demand": demand,
-                "risk": risk,
-                "price": price,
-                "cost": cost,
-                "quantity": quantity,
-                "margin": margin,
-                "profit": profit,
-                "recommendation": recommendation
-            }
-        )
-
+    analysis_data.append(
+        {
+            "market": market,
+            "demand": demand,
+            "risk": risk,
+            "price": price,
+            "cost": cost,
+            "quantity": quantity,
+            "margin": margin,
+            "profit_margin": profit_margin,
+            "profit": profit,
+            "entry_score": entry_score,
+            "entry_class": entry_class,
+            "recommendation": recommendation
+        }
+    )
 
     if analysis_data:
 
