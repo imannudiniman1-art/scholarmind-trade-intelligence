@@ -264,7 +264,10 @@ uploaded_file = st.file_uploader(
 )
 
 
-data = []
+if "trade_data" not in st.session_state:
+    st.session_state.trade_data = []
+
+data = st.session_state.trade_data
 
 
 if uploaded_file is not None:
@@ -283,6 +286,8 @@ if uploaded_file is not None:
             temp_path = tmp.name
 
         data = load_data(temp_path)
+
+        st.session_state.trade_data = data
 
         os.unlink(temp_path)
 
