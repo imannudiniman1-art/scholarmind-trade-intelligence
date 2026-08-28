@@ -298,8 +298,7 @@ if uploaded_file is not None:
                 pd.DataFrame(data),
                 use_container_width=True,
                 hide_index=True
-                height=220
-             )
+            )
 
         else:
 
@@ -617,19 +616,20 @@ for item in data:
         summary_df = pd.DataFrame(
             analysis_data
         )
-            st.dataframe(
-                 summary_df[
-                 [
-                     "market",
-                     "demand",
-                     "risk",
-                     "price",
-                     "cost",
-                     "quantity",
-                     "margin",
+
+        st.dataframe(
+            summary_df[
+                [
+                    "market",
+                    "demand",
+                    "risk",
+                    "price",
+                    "cost",
+                    "quantity",
+                    "margin",
                     "profit",
                     "recommendation"
-                 ]
+                ]
             ],
             use_container_width=True,
             hide_index=True,
