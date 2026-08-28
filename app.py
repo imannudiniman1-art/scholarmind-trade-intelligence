@@ -617,24 +617,24 @@ for item in data:
         summary_df = pd.DataFrame(
             analysis_data
         )
-        st.dataframe(
+            st.dataframe(
             summary_df[
            [
-            "market",
-            "demand",
-            "risk",
-            "price",
-            "cost",
-            "quantity",
-            "margin",
-            "profit",
-            "recommendation"
-        ]
-    ],
-    use_container_width=True,
-    hide_index=True,
-    height=260
-)
+                "market",
+                "demand",
+                "risk",
+                "price",
+                "cost",
+                "quantity",
+                "margin",
+                "profit",
+                "recommendation"
+           ]
+         ],
+            use_container_width=True,
+            hide_index=True,
+            height=260
+        )
 
 
         
