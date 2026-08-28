@@ -491,94 +491,95 @@ for item in data:
             )
 
 
-        # ====================================================
-        # DEMAND
-        # ====================================================
+# ScholarMind Trade Intelligence - compact dashboard version
+# Replace the current chart section with the compact chart layout shown below.
 
-        st.divider()
+# ============================================================
+# COMPACT CHARTS
+# ============================================================
 
-        st.subheader("📊 Demand per Market")
+st.divider()
+st.subheader("📈 Market Analytics Charts")
 
-        demand_df = pd.DataFrame(
-            [
-                {
-                    "Market": item["market"],
-                    "Demand": item["demand"]
-                }
-                for item in analysis_data
-            ]
-        )
+# Demand
+Demand_df = pd.DataFrame([
+    {"Market": x["market"], "Demand": x["demand"]}
+    for x in analysis_data
+])
 
-        st.bar_chart(
-            demand_df.set_index("Market")
-        )
+# Price vs Cost
+price_cost_df = pd.DataFrame([
+    {"Market": x["market"], "Price": x["price"], "Cost": x["cost"]}
+    for x in analysis_data
+])
 
+# Risk vs Demand
+risk_demand_df = pd.DataFrame([
+    {"Market": x["market"], "Demand": x["demand"], "Risk": x["risk"]}
+    for x in analysis_data
+])
 
-        # ====================================================
-        # PRICE VS COST
-        # ====================================================
+# Profit
+profit_df = pd.DataFrame([
+    {"Market": x["market"], "Profit": x["profit"]}
+    for x in analysis_data
+])
 
-        st.subheader("💰 Price vs Cost")
+# Recommendation score
+recommendation_df = pd.DataFrame([
+    {
+        "Market": x["market"],
+        "Recommendation Score": recommendation_score(x["recommendation"]),
+    }
+    for x in analysis_data
+])
 
-        price_cost_df = pd.DataFrame(
-            [
-                {
-                    "Market": item["market"],
-                    "Price": item["price"],
-                    "Cost": item["cost"]
-                }
-                for item in analysis_data
-            ]
-        )
+# Two charts per row instead of full-screen charts.
+chart1, chart2 = st.columns(2)
 
-        st.bar_chart(
-            price_cost_df.set_index("Market")
-        )
+with chart1:
+    st.markdown("**📊 Demand per Market**")
+    st.bar_chart(
+        Demand_df.set_index("Market"),
+        height=260,
+        use_container_width=True,
+    )
 
+with chart2:
+    st.markdown("**💰 Price vs Cost**")
+    st.bar_chart(
+        price_cost_df.set_index("Market"),
+        height=260,
+        use_container_width=True,
+    )
 
-        # ====================================================
-        # RISK VS DEMAND
-        # ====================================================
+chart3, chart4 = st.columns(2)
 
-        st.subheader("⚠️ Risk vs Demand")
+with chart3:
+    st.markdown("**⚠️ Risk vs Demand**")
+    st.scatter_chart(
+        risk_demand_df,
+        x="Demand",
+        y="Risk",
+        height=260,
+        use_container_width=True,
+    )
 
-        risk_demand_df = pd.DataFrame(
-            [
-                {
-                    "Market": item["market"],
-                    "Demand": item["demand"],
-                    "Risk": item["risk"]
-                }
-                for item in analysis_data
-            ]
-        )
+with chart4:
+    st.markdown("**📈 Profit Analysis**")
+    st.bar_chart(
+        profit_df.set_index("Market"),
+        height=260,
+        use_container_width=True,
+    )
 
-        st.scatter_chart(
-            risk_demand_df,
-            x="Demand",
-            y="Risk"
-        )
+st.markdown("**🎯 Recommendation Score**")
+st.bar_chart(
+    recommendation_df.set_index("Market"),
+    height=240,
+    use_container_width=True,
+)
 
-
-        # ====================================================
-        # PROFIT
-        # ====================================================
-
-        st.subheader("📈 Profit Analysis")
-
-        profit_df = pd.DataFrame(
-            [
-                {
-                    "Market": item["market"],
-                    "Profit": item["profit"]
-                }
-                for item in analysis_data
-            ]
-        )
-
-        st.bar_chart(
-            profit_df.set_index("Market")
-        )
 
 
         # ====================================================
