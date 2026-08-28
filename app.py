@@ -371,16 +371,11 @@ if isinstance(data, list) and data:
 
         profit = quantity * margin
 # Keep profit margin within the valid scoring range
-       score_profit_margin = max(
-            0,
-            min(100, profit_margin)
+       score_profit_margin = max(0,min(100, profit_margin)
         )
 
         entry_score =calculate_market_entry_score(
-            demand=demand,
-
-        profit_margin=score_profit_margin,
-            risk=risk
+            demand=demand profit_margin=score_profit_margin,risk=risk
         )
 
         entry_class = classify_market_entry_score(
