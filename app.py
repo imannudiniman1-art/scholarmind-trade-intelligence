@@ -325,98 +325,98 @@ if isinstance(data, list) and data:
 
     analysis_data = []
 
-
     # ========================================================
     # PREPARE DATA
     # ========================================================
 
-for item in data:
+    for item in data:
 
-    if not isinstance(item, dict):
-        continue
+        if not isinstance(item, dict):
+            continue
 
-    market = item.get("market", "Unknown")
+        market = item.get("market", "Unknown")
 
-    demand = to_number(
-        item.get("demand", 0)
-    )
+        demand = to_number(
+            item.get("demand", 0)
+        )
 
-    risk = to_number(
-        item.get("risk", 0)
-    )
+        risk = to_number(
+            item.get("risk", 0)
+        )
 
-    price = to_number(
-        item.get("price", 0)
-    )
+        price = to_number(
+            item.get("price", 0)
+        )
 
-    cost = to_number(
-        item.get("cost", 0)
-    )
+        cost = to_number(
+            item.get("cost", 0)
+        )
 
-    quantity = to_number(
-        item.get("quantity", 0)
-    )
+        quantity = to_number(
+            item.get("quantity", 0)
+        )
 
-    margin = price - cost
+        margin = price - cost
 
-    profit_margin = (
-        (margin / price) * 100
-        if price > 0
-        else 0
-    )
+        profit_margin = (
+            (margin / price) * 100
+            if price > 0
+            else 0
+        )
 
-    profit = quantity * margin
+        profit = quantity * margin
 
-    entry_score = calculate_market_entry_score(
-        demand=demand,
-        profit_margin=profit_margin,
-        risk=risk
-    )
+        entry_score = calculate_market_entry_score(
+            demand=demand,
+            profit_margin=profit_margin,
+            risk=risk
+        )
 
-    entry_class = classify_market_entry_score(
-        entry_score
-    )
+        entry_class = classify_market_entry_score(
+            entry_score
+        )
 
-    recommendation = generate_recommendation(
-        demand,
-        risk
-    )
+        recommendation = generate_recommendation(
+            demand,
+            risk
+        )
 
-    analysis_data.append(
-        {
-            "market": market,
-            "demand": demand,
-            "risk": risk,
-            "price": price,
-            "cost": cost,
-            "quantity": quantity,
-            "margin": margin,
-            "profit_margin": profit_margin,
-            "profit": profit,
-            "entry_score": entry_score,
-            "entry_class": entry_class,
-            "recommendation": recommendation
-        }
-   
-      )
-   
+        analysis_data.append(
+            {
+                "market": market,
+                "demand": demand,
+                "risk": risk,
+                "price": price,
+                "cost": cost,
+                "quantity": quantity,
+                "margin": margin,
+                "profit_margin": profit_margin,
+                "profit": profit,
+                "entry_score": entry_score,
+                "entry_class": entry_class,
+                "recommendation": recommendation
+            }
+        )
+
+    # ========================================================
+    # TRADE INTELLIGENCE
+    # ========================================================
+
     if analysis_data:
-
-        # ====================================================
-        # TOP METRICS
-        # ====================================================
 
         st.subheader("🧠 Trade Intelligence")
 
         col1, col2, col3, col4 = st.columns(4)
 
-        avg_demand = sum(
-            x["demand"] for x in analysis_data
-        ) / len(analysis_data)
+        avg_demand = (
+            sum(x["demand"] for x in analysis_data)
+            / len(analysis_data)
+        )
 
-        avg_risk = sum(
-            x["risk"] for x in analysis_data
-        ) / len(analysis_data)
+        avg_risk = (
+            sum(x["risk"] for x in analysis_data)
+            / len(analysis_data)
+        )
 
         total_profit = sum(
             x["profit"] for x in analysis_data
@@ -428,33 +428,28 @@ for item in data:
         )
 
         with col1:
-
             st.metric(
                 "Average Demand",
                 f"{avg_demand:.1f}"
             )
 
         with col2:
-
             st.metric(
                 "Average Risk",
                 f"{avg_risk:.1f}"
             )
 
         with col3:
-
             st.metric(
                 "Total Profit",
                 f"{total_profit:,.0f}"
             )
 
         with col4:
-
             st.metric(
                 "Priority Market",
                 str(best_market["market"])
             )
-
 
         # ====================================================
         # RECOMMENDATIONS
@@ -490,123 +485,130 @@ for item in data:
                 unsafe_allow_html=True
             )
 
+        # ====================================================
+        # COMPACT MARKET ANALYTICS CHARTS
+        # ====================================================
 
-# ScholarMind Trade Intelligence - compact dashboard version
-# Replace the current chart section with the compact chart layout shown below.
+        st.divider()
 
-# ============================================================
-# COMPACT CHARTS
-# ============================================================
+        st.subheader("📈 Market Analytics Charts")
 
-st.divider()
-st.subheader("📈 Market Analytics Charts")
+        demand_df = pd.DataFrame(
+            [
+                {
+                    "Market": x["market"],
+                    "Demand": x["demand"]
+                }
+                for x in analysis_data
+            ]
+        )
 
-# Demand
-Demand_df = pd.DataFrame([
-    {"Market": x["market"], "Demand": x["demand"]}
-    for x in analysis_data
-])
+        price_cost_df = pd.DataFrame(
+            [
+                {
+                    "Market": x["market"],
+                    "Price": x["price"],
+                    "Cost": x["cost"]
+                }
+                for x in analysis_data
+            ]
+        )
 
-# Price vs Cost
-price_cost_df = pd.DataFrame([
-    {"Market": x["market"], "Price": x["price"], "Cost": x["cost"]}
-    for x in analysis_data
-])
+        risk_demand_df = pd.DataFrame(
+            [
+                {
+                    "Market": x["market"],
+                    "Demand": x["demand"],
+                    "Risk": x["risk"]
+                }
+                for x in analysis_data
+            ]
+        )
 
-# Risk vs Demand
-risk_demand_df = pd.DataFrame([
-    {"Market": x["market"], "Demand": x["demand"], "Risk": x["risk"]}
-    for x in analysis_data
-])
+        profit_df = pd.DataFrame(
+            [
+                {
+                    "Market": x["market"],
+                    "Profit": x["profit"]
+                }
+                for x in analysis_data
+            ]
+        )
 
-# Profit
-profit_df = pd.DataFrame([
-    {"Market": x["market"], "Profit": x["profit"]}
-    for x in analysis_data
-])
+        recommendation_df = pd.DataFrame(
+            [
+                {
+                    "Market": x["market"],
+                    "Recommendation Score":
+                        recommendation_score(
+                            x["recommendation"]
+                        )
+                }
+                for x in analysis_data
+            ]
+        )
 
-# Recommendation score
-recommendation_df = pd.DataFrame([
-    {
-        "Market": x["market"],
-        "Recommendation Score": recommendation_score(x["recommendation"]),
-    }
-    for x in analysis_data
-])
+        # ====================================================
+        # ROW 1
+        # ====================================================
 
-# Two charts per row instead of full-screen charts.
-chart1, chart2 = st.columns(2)
+        chart1, chart2 = st.columns(2)
 
-with chart1:
-    st.markdown("**📊 Demand per Market**")
-    st.bar_chart(
-        Demand_df.set_index("Market"),
-        height=260,
-        use_container_width=True,
-    )
+        with chart1:
 
-with chart2:
-    st.markdown("**💰 Price vs Cost**")
-    st.bar_chart(
-        price_cost_df.set_index("Market"),
-        height=260,
-        use_container_width=True,
-    )
+            st.markdown("**📊 Demand per Market**")
 
-chart3, chart4 = st.columns(2)
+            st.bar_chart(
+                demand_df.set_index("Market"),
+                height=240
+            )
 
-with chart3:
-    st.markdown("**⚠️ Risk vs Demand**")
-    st.scatter_chart(
-        risk_demand_df,
-        x="Demand",
-        y="Risk",
-        height=260,
-        use_container_width=True,
-    )
+        with chart2:
 
-with chart4:
-    st.markdown("**📈 Profit Analysis**")
-    st.bar_chart(
-        profit_df.set_index("Market"),
-        height=260,
-        use_container_width=True,
-    )
+            st.markdown("**💰 Price vs Cost**")
 
-st.markdown("**🎯 Recommendation Score**")
-st.bar_chart(
-    recommendation_df.set_index("Market"),
-    height=240,
-    use_container_width=True,
-)
+            st.bar_chart(
+                price_cost_df.set_index("Market"),
+                height=240
+            )
 
+        # ====================================================
+        # ROW 2
+        # ====================================================
 
+        chart3, chart4 = st.columns(2)
 
+        with chart3:
+
+            st.markdown("**⚠️ Risk vs Demand**")
+
+            st.scatter_chart(
+                risk_demand_df,
+                x="Demand",
+                y="Risk",
+                height=240
+            )
+
+        with chart4:
+
+            st.markdown("**📈 Profit Analysis**")
+
+            st.bar_chart(
+                profit_df.set_index("Market"),
+                height=240
+            )
 
         # ====================================================
         # RECOMMENDATION SCORE
         # ====================================================
 
-        st.subheader("🎯 Recommendation Score")
-
-        recommendation_df = pd.DataFrame(
-            [
-                {
-                    "Market": item["market"],
-                    "Recommendation Score": recommendation_score(
-                        item["recommendation"]
-                    )
-                }
-                for item in analysis_data
-            ]
-        )
+        st.markdown("**🎯 Recommendation Score**")
 
         st.bar_chart(
             recommendation_df.set_index("Market"),
-            height=260
+            height=220
         )
 
-
         # ====================================================
         # SUMMARY
         # ====================================================
@@ -637,7 +639,6 @@ st.bar_chart(
             hide_index=True,
             height=260
         )
-
 
         # ====================================================
         # PRIORITY MARKET
@@ -679,6 +680,19 @@ st.bar_chart(
                 "Recommendation",
                 priority["recommendation"]
             )
+
+
+        # ====================================================
+        # PRIORITY MARKET
+        # ====================================================
+
+        st.divider()
+
+        st.subheader("🚀 Priority Market")
+
+        
+
+        
 
 
 # ============================================================
