@@ -258,9 +258,9 @@ st.divider()
 st.header("📂 Load Trade Data")
 
 uploaded_file = st.file_uploader(
-    "Upload a CSV or JSON trade dataset",
+    "📂 Pilih file CSV atau JSON",
     type=["csv", "json"],
-    help="Maximum file size depends on your Streamlit deployment."
+    help="Pilih dataset perdagangan dari perangkat Anda."
 )
 
 
