@@ -582,6 +582,7 @@ st.bar_chart(
 
 
 
+
         # ====================================================
         # RECOMMENDATION SCORE
         # ====================================================
@@ -592,20 +593,20 @@ st.bar_chart(
             [
                 {
                     "Market": item["market"],
-                    "Recommendation Score":
-                        recommendation_score(
-                            item["recommendation"]
-                        )
+                    "Recommendation Score": recommendation_score(
+                        item["recommendation"]
+                    )
                 }
                 for item in analysis_data
             ]
         )
 
         st.bar_chart(
-            recommendation_df.set_index("Market")
+            recommendation_df.set_index("Market"),
+            height=260
         )
 
-
+
         # ====================================================
         # SUMMARY
         # ====================================================
