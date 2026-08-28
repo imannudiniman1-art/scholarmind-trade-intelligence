@@ -298,7 +298,8 @@ if uploaded_file is not None:
                 pd.DataFrame(data),
                 use_container_width=True,
                 hide_index=True
-            )
+                height=220
+             )
 
         else:
 
@@ -633,6 +634,8 @@ for item in data:
             ],
             use_container_width=True,
             hide_index=True
+            height=220
+
         )
 
 
